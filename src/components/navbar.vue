@@ -1,0 +1,56 @@
+<template>
+    <div style="height: auto;">
+        <div class="navbar">
+            <img src="../assets/logo.svg" style="height: 45px;width: auto;margin: auto 30px auto 30px" alt="" srcset="">
+            <img src="../assets/search.svg" style="width: 18px; height: auto;margin-left: auto;transform: translate(40px, 0px);align-self: center" alt="">
+            <input @keyup.enter="search()" style="align-self: center;" type="text" placeholder="Search" class="searchInput" ref="search_bar" v-model="search_input">
+            <button @click="search()" style="margin-left: 30px;margin-right: 30px;" class="btn-outline">Search</button>
+            <button @click="$router.push('/signup')" style="margin-right: 30px;" class="btn-outline">SignUp</button>
+        </div>
+        <toolbar />
+    </div>
+</template>
+
+<script>
+import toolbar from "./toolbar"
+export default {
+    name: 'navbar',
+    components: {
+        toolbar
+    },
+    data () {
+        return {
+            searchInput: ''
+        }
+    }
+}
+
+</script>
+
+<style scoped>
+
+.navbar {
+    background: white;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 80px;
+    z-index: 99;
+    width: 100vw;
+    -webkit-box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: row;
+}
+
+.searchInput {
+    all: unset;
+    height: auto;
+    border: 2px solid #e1e1e1;
+    border-radius: 1000000px;
+    width: 12vw;
+    padding: 8px 20px 8px 60px;
+    text-align: left;
+}
+
+</style>
