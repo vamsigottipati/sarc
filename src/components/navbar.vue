@@ -3,7 +3,7 @@
         <div class="navbar">
             <img src="../assets/logo.svg" style="height: 45px;width: auto;margin: auto 30px auto 30px" alt="" srcset="">
             <img src="../assets/search.svg" style="width: 18px; height: auto;margin-left: auto;transform: translate(40px, 0px);align-self: center" alt="">
-            <input @keyup.enter="search()" style="align-self: center;" type="text" placeholder="Search" class="searchInput" ref="search_bar" v-model="search_input">
+            <input @keyup.enter="search()" style="align-self: center;" type="text" placeholder="Search" class="searchInput" ref="search_bar" v-model="searchInput">
             <button @click="search()" style="margin-left: 30px;margin-right: 30px;" class="btn-outline">Search</button>
             <button @click="$router.push('/signup')" style="margin-right: 30px;" class="btn-outline">SignUp</button>
         </div>
@@ -12,7 +12,10 @@
 </template>
 
 <script>
+
 import toolbar from "./toolbar"
+// import { EventBus } from "../eventbus.js"
+
 export default {
     name: 'navbar',
     components: {
@@ -22,6 +25,11 @@ export default {
         return {
             searchInput: ''
         }
+    },
+    methods: {
+        search() {
+            console.log("search")
+        },
     }
 }
 

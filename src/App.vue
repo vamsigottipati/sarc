@@ -14,6 +14,11 @@
   font-weight: 400;
 }
 
+.rotator {
+    -webkit-animation: rotator 1s ease-in-out infinite;
+      animation: rotator 1s ease-in-out infinite;
+}
+
 #nav {
   padding: 30px;
 }
@@ -43,4 +48,22 @@
   background: #42b983;
   color: white;
 }
+
+ @-webkit-keyframes rotator {
+  0% {
+      transform: rotate(0deg)
+  }
+  100% {
+      transform: rotate(360deg)
+  }
+}
+@keyframes rotator {
+  0% {
+      transform: rotate(0deg)
+  }
+  100% {
+      transform: rotate(360deg)
+  }
+}
+
 </style>
