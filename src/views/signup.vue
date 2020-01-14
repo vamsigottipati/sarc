@@ -55,7 +55,7 @@
 
 <script>
 
-import * as firebase from "firebase"
+const firebase = require("../firebaseConfig")
 
 export default {
     name: 'signup',
@@ -79,11 +79,11 @@ export default {
                 if (this.password == this.password_re) {
                     if(this.email.includes('@gmail.com') && this.email) {
                         vm.loading = true
-                        firebase.auth().createUserWithEmailAndPassword(vm.email, vm.password).then(resp => {
+                        firebase.auth.createUserWithEmailAndPassword(vm.email, vm.password).then(resp => {
                             console.log(resp)
-                            firebase.auth().currentUser.sendEmailVerification().then( () => {
+                            firebase.auth.currentUser.sendEmailVerification().then( () => {
                                 alert('Email Verification Sent!');
-                                firebase.auth().currentUser.updateProfile({
+                                firebase.auth.currentUser.updateProfile({
                                     displayName: vm.name
                                 }).then(function() {vm.afterAuth = true}).catch(function(e) {
                                     console.log(e)

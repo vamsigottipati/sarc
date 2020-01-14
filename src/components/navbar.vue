@@ -5,7 +5,7 @@
             <img src="../assets/search.svg" style="width: 18px; height: auto;margin-left: auto;transform: translate(40px, 0px);align-self: center" alt="">
             <input @keyup.enter="search()" style="align-self: center;" type="text" placeholder="Search" class="searchInput" ref="search_bar" v-model="searchInput">
             <button @click="search()" style="margin-left: 30px;margin-right: 30px;" class="btn-outline">Search</button>
-            <button @click="$router.push('/signup')" style="margin-right: 30px;" class="btn-outline">SignUp</button>
+            <button v-if="!this.authState" @click="$router.push('/signup')" style="margin-right: 30px;" class="btn-outline">SignUp</button>
         </div>
         <toolbar />
     </div>
@@ -13,8 +13,8 @@
 
 <script>
 
+const firebase = require("../firebaseConfig")
 import toolbar from "./toolbar"
-// import { EventBus } from "../eventbus.js"
 
 export default {
     name: 'navbar',
@@ -23,13 +23,18 @@ export default {
     },
     data () {
         return {
-            searchInput: ''
+            searchInput: '',
+            authState: false
         }
     },
     methods: {
         search() {
             console.log("search")
         },
+    },
+    mounted () {
+        this.authState = firebase.auth.currentUser.uid
+        console.log(this.authState.length)
     }
 }
 

@@ -53,7 +53,7 @@
 
 <script>
 
-import * as firebase from "firebase"
+const firebase = require("../firebaseConfig")
 
 export default {
     name: 'login',
@@ -74,7 +74,7 @@ export default {
             var vm = this
             vm.loading = true
             if ( vm.email && vm.password ) {
-                firebase.auth().signInWithEmailAndPassword(vm.email, vm.password).then( () => {
+                firebase.auth.signInWithEmailAndPassword(vm.email, vm.password).then( () => {
                     vm.afterAuth = true
                 }).catch(err => {
                     alert(err)
