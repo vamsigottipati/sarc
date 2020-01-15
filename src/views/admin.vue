@@ -267,7 +267,7 @@ export default {
                 if(this.categories.includes(this.new_category) || this.categories.includes(this.new_category.toLowerCase())) {
                     alert("Catgeory Already Exists")
                 } else {
-                    firebase.rtdb.ref("categories/" + this.new_category.toLowerCase().trim()).set(this.new_category).then(() => {
+                    firebase.rtdb.ref("categories/" + this.new_category.toLowerCase().replace(/ /g,'')).set(this.new_category).then(() => {
                         alert('New post Added')
                         vm.loading = false
                     })
@@ -308,7 +308,7 @@ export default {
                         contact: "9999999999",
                         _id: id
                     }
-                    firebase.rtdb.ref("posts").push(data_json).then(() => {
+                    firebase.rtdb.ref("posts/" + id).set(data_json).then(() => {
                         alert('New post Added')
                         vm.loading = false
                     })

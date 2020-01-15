@@ -4,6 +4,8 @@ import Home from '../views/Home.vue'
 import login from "../views/login.vue"
 import signup from "../views/signup.vue"
 import admin from "../views/admin.vue"
+import routeGaurd from "./routeGaurd"
+import post from "../views/post.vue"
 
 
 Vue.use(VueRouter)
@@ -27,7 +29,13 @@ const routes = [
   {
     path: '/admin',
     name: 'admin',
-    component: admin
+    component: admin,
+    beforeEnter: routeGaurd
+  },
+  {
+    path: '/post/:id', 
+    component: post,
+    name: 'post',
   },
 ]
 
