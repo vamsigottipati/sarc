@@ -10,7 +10,7 @@
 
 <!-- Add a category -->
 
-        <p v-if="!this.loading" style="font-size: 22px;color: black;font-weight: 900;word-spacing: 8px;padding-top: 150px; padding-bottom: 15px;padding-left: 5vw;">Add a category.</p>
+        <p v-if="!this.loading" style="font-size: 22px;color: black;font-weight: 600;word-spacing: 8px;padding-top: 150px; padding-bottom: 15px;padding-left: 5vw;">Add a category.</p>
         <div v-if="!this.loading" style="width: 70vw;height: auto;margin-left: 5vw;border-radius: 10px;">
             <input type="text" style="width: 50%;background: #f1f1f1;text-align: left;padding-left: 50px;" placeholder="Enter a name for the new category" class="new_input" v-model="new_category">
             <button @click="this.submit_category" style="width: auto; padding: 15px;padding-left: 40px; padding-right: 40px;margin-left: 40px;" class="btn_submit" >Submit</button>
@@ -18,7 +18,7 @@
 
 <!-- Add a post -->
 
-        <p v-if="!this.loading" style="font-size: 22px;color: black;font-weight: 900;word-spacing: 8px;padding-top: 10vh; padding-bottom: 15px;padding-left: 5vw;">Enter the fields to post an event.</p>
+        <p v-if="!this.loading" style="font-size: 22px;color: black;font-weight: 600;word-spacing: 8px;padding-top: 10vh; padding-bottom: 15px;padding-left: 5vw;">Enter the fields to post an event.</p>
         <div v-if="!this.loading" style="width: 80vw;height: auto;margin-left: 5vw;background: #f1f1f1;border-radius: 10px;display: flex; flex-direction: column;margin-bottom: 10vh;">
             <div class="post_title" style="display: flex; flex-direction: row;margin-top: 50px;">
                 <p style="align-slef: flex-start;padding: 0px;padding-left: 40px;font-size: 18px;font-weight: 600;align-self: center;">Give a title to your post</p>
@@ -49,7 +49,7 @@
                 <p style="align-slef: flex-start;padding: 0px;padding-left: 40px;text-align: left;font-size: 18px;font-weight: 600;">Give a title to your post :</p>
                 <textarea name="description" class="description_input" style="width: calc(90% - 120px); margin-left: 40px;margin-top: 20px;color: #757575" placeholder="Give a writeup of the idea ..." v-model="description" ref="description_input"></textarea>
             </div>
-            <button @click="this.submit_post" style="width: 8vw; padding: 15px;padding-left: 40px; padding-right: 40px;margin-left: 40px;margin-bottom: 50px;margin-top: 25px;" class="btn_submit" >Submit Post</button>
+            <button @click="this.submit_post" style="padding: 15px;padding-left: 40px;padding-right: 40px;margin-left: 40px;margin-bottom: 50px;margin-top: 35px;margin-right: auto;" class="btn_submit" >Add Post</button>
         </div>
     </div>
 </template>
@@ -74,7 +74,7 @@
         padding-left: 40px;
         padding-right: 40px;
         cursor: pointer;
-        font-weight: 900;
+        font-weight: 600;
         color: black;
     }
     .btn_submit:hover{
@@ -89,7 +89,7 @@
         height: auto;
         background: white;
         color: black;
-        font-weight: 500;
+        font-weight: 600;
         font-size: 16px;
         padding: 15px;
         padding-right: 40px;
@@ -129,7 +129,7 @@
     }
     .inputfile + label {
         font-size: 16px;
-        font-weight: 700;
+        font-weight: 600;
         color: white;
         background-color: white;
         border-radius: 100000px;

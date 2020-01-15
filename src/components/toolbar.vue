@@ -14,7 +14,7 @@ export default {
 <style scoped>
 
 .toolbar {
-    background: #f1f1f1;
+    background: #dedede;
     position: fixed;
     z-index: 90;
     top: 80px;
