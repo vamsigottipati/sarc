@@ -29,12 +29,12 @@
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #EA4360;
 }
 .btn-outline {
   all:unset;
   background: transparent;
-  border: 2px solid #42b983;
+  border: 2px solid #EA4360;
   height: auto;
   border-radius: 1000000px;
   padding: 8px 30px 8px 30px;
@@ -42,10 +42,10 @@
   text-align: center;
   cursor: pointer;
   transition: 0.35s;
-  font-weight: 400;
+  font-weight: 500;
 }
 .btn-outline:hover {
-  background: #42b983;
+  background: #EA4360;
   color: white;
 }
 
