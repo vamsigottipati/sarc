@@ -261,7 +261,20 @@ export default {
             })
         },
         submit_category () {
-            this.loading = true
+            var vm = this
+            vm.loading = true
+            if(this.new_category) {
+                if(this.categories.includes(this.new_category) || this.categories.includes(this.new_category.toLowerCase())) {
+                    alert("Catgeory Already Exists")
+                } else {
+                    firebase.rtdb.ref("categories/" + this.new_category.toLowerCase().trim()).set(this.new_category).then(() => {
+                        alert('New post Added')
+                        vm.loading = false
+                    })
+                }
+            } else {
+                alert("Give a category name")
+            }
         },
         submit_post () {
             var vm = this
