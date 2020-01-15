@@ -49,8 +49,8 @@ export default {
     height: 80px;
     z-index: 99;
     width: 100vw;
-    -webkit-box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.15);
-    box-shadow: 0 0px 10px 0px rgba(0, 0, 0, 0.15);
+    /* -webkit-box-shadow: 0 0px 10px 0px rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0px 10px 0px rgba(255, 255, 255, 0.25); */
     display: flex;
     flex-direction: row;
 }
