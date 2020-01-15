@@ -34,7 +34,6 @@ export default {
     },
     mounted () {
         this.authState = firebase.auth.currentUser.uid
-        console.log(this.authState.length)
     }
 }
 

@@ -14,8 +14,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 const rtdb = firebase.database()
 const auth = firebase.auth()
+const storage = firebase.storage()
 
 export {
     auth,
-    rtdb
+    rtdb,
+    storage
   }
