@@ -61,7 +61,7 @@ export default {
     height: auto;
     border: 2px solid #e1e1e1;
     border-radius: 1000000px;
-    width: 12vw;
+    width: 15vw;
     padding: 8px 20px 8px 60px;
     text-align: left;
 }
