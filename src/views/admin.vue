@@ -117,7 +117,7 @@
         top: -30px;
         right: 25px;
         /* -webkit-animation: boxShadowSm 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: boxShadowSm 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both; */
+        animation: boxShadowSm 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both; */
     }
     .inputfile {
         width: 0.1px;
@@ -150,7 +150,7 @@
     }
     .rotator {
         -webkit-animation: rotator 1s ease-in-out infinite;
-	        animation: rotator 1s ease-in-out infinite;
+        animation: rotator 1s ease-in-out infinite;
     }
 
 /* Keyframes */

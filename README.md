@@ -1,4 +1,4 @@
-# sarc_new
+# sarc
 
 ## Project setup
 ```
