@@ -24,7 +24,7 @@
                 <div style="display: flex;flex-direction: column;justify-content: flex-start;align-content: center;overflow: auto;margin-right: 2vw; margin-bottom: 8vh;">
                     <div @click="getAllPosts(), resetBg()" ref="first_cat" class="bg_grey" style="display: flex; flex-direction: row; padding: 10px;border-radius: 10000px; margin-top: 20px;cursor:pointer;">
                         <div class="bg_yellow" style="width: 10px; height: 10px; border-radius: 50%;align-self: center;margin-left: 30px;"></div>
-                        <p style="paddin: 0px;margin: 0px;color: black;font-size: 17px;padding-left: 20px;padding-right: 40px;">All Posts</p>
+                        <p style="paddin: 0px;margin: 0px;color: black;font-size: 17px;padding-left: 20px;padding-right: 40px;">All Departments</p>
                     </div>
                     <div v-for="(sc,i) in this.categories" :key="i" @click="setBg(i), getPosts(sc)"  :ref="'sidebar_category' + i"  style="display: flex; flex-direction: row; padding: 10px;border-radius: 10000px; margin-top: 20px;cursor:pointer;">
                         <div :class="{'bg_red': i%3 == 1, 'bg_yellow': i%3 == 2, 'bg_blue': i%3 == 0}" style="width: 10px; height: 10px; border-radius: 50%;align-self: center;margin-left: 30px;"></div>
