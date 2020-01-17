@@ -15,7 +15,7 @@
                 <div class="ns_i_cont">
                     <p class="" @click="$router.push('/')" ref="news">News</p>
                     <p class="" @click="$router.push('/events')" ref="events">Events</p>
-                    <p class="" @click="$router.push('/merch')" ref="merch">Merchandise</p>
+                    <p class="" @click="$router.push('/merch')" ref="merch">Placeholder</p>
                     <p class="" @click="$router.push('/admin')" ref="merch">Admin</p>
                     <p class="" @click="$router.push('/contact')" ref="contact">Contact</p>
                 </div>
