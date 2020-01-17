@@ -10,7 +10,7 @@
 
 <!-- Add a category -->
 
-        <p v-if="!this.loading" style="font-size: 22px;color: black;font-weight: 600;word-spacing: 8px;padding-top: 150px; padding-bottom: 15px;padding-left: 5vw;">Add a category.</p>
+        <p v-if="!this.loading" style="font-size: 22px;color: black;font-weight: 900;word-spacing: 8px;padding-top: 150px; padding-bottom: 15px;padding-left: 5vw;">Add a category.</p>
         <div v-if="!this.loading" style="width: 70vw;height: auto;margin-left: 5vw;border-radius: 10px;">
             <input type="text" style="width: 50%;background: #f1f1f1;text-align: left;padding-left: 50px;" placeholder="Enter a name for the new category" class="new_input" v-model="new_category">
             <button @click="this.submit_category" style="width: auto; padding: 15px;padding-left: 40px; padding-right: 40px;margin-left: 40px;" class="btn_submit" >Submit</button>
@@ -18,7 +18,7 @@
 
 <!-- Add a post -->
 
-        <p v-if="!this.loading" style="font-size: 22px;color: black;font-weight: 600;word-spacing: 8px;padding-top: 10vh; padding-bottom: 15px;padding-left: 5vw;">Enter the fields to post an event.</p>
+        <p v-if="!this.loading" style="font-size: 22px;color: black;font-weight: 900;word-spacing: 8px;padding-top: 10vh; padding-bottom: 15px;padding-left: 5vw;">Enter the fields to post an event.</p>
         <div v-if="!this.loading" style="width: 80vw;height: auto;margin-left: 5vw;background: #f1f1f1;border-radius: 10px;display: flex; flex-direction: column;margin-bottom: 10vh;">
             <div class="post_title" style="display: flex; flex-direction: row;margin-top: 50px;">
                 <p style="align-slef: flex-start;padding: 0px;padding-left: 40px;font-size: 18px;font-weight: 600;align-self: center;">Give a title to your post</p>
@@ -49,7 +49,7 @@
                 <p style="align-slef: flex-start;padding: 0px;padding-left: 40px;text-align: left;font-size: 18px;font-weight: 600;">Give a title to your post :</p>
                 <textarea name="description" class="description_input" style="width: calc(90% - 120px); margin-left: 40px;margin-top: 20px;color: #757575" placeholder="Give a writeup of the idea ..." v-model="description" ref="description_input"></textarea>
             </div>
-            <button @click="this.submit_post" style="padding: 15px;padding-left: 40px;padding-right: 40px;margin-left: 40px;margin-bottom: 50px;margin-top: 35px;margin-right: auto;" class="btn_submit" >Add Post</button>
+            <button @click="this.submit_post" style="width: 8vw; padding: 15px;padding-left: 40px; padding-right: 40px;margin-left: 40px;margin-bottom: 50px;margin-top: 25px;" class="btn_submit" >Submit Post</button>
         </div>
     </div>
 </template>
@@ -74,7 +74,7 @@
         padding-left: 40px;
         padding-right: 40px;
         cursor: pointer;
-        font-weight: 600;
+        font-weight: 900;
         color: black;
     }
     .btn_submit:hover{
@@ -89,7 +89,7 @@
         height: auto;
         background: white;
         color: black;
-        font-weight: 600;
+        font-weight: 500;
         font-size: 16px;
         padding: 15px;
         padding-right: 40px;
@@ -117,7 +117,7 @@
         top: -30px;
         right: 25px;
         /* -webkit-animation: boxShadowSm 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-        animation: boxShadowSm 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both; */
+	        animation: boxShadowSm 0.1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both; */
     }
     .inputfile {
         width: 0.1px;
@@ -129,7 +129,7 @@
     }
     .inputfile + label {
         font-size: 16px;
-        font-weight: 600;
+        font-weight: 700;
         color: white;
         background-color: white;
         border-radius: 100000px;
@@ -150,7 +150,7 @@
     }
     .rotator {
         -webkit-animation: rotator 1s ease-in-out infinite;
-        animation: rotator 1s ease-in-out infinite;
+	        animation: rotator 1s ease-in-out infinite;
     }
 
 /* Keyframes */
@@ -202,7 +202,8 @@
 <script>
 
 import navbar from '../components/navbar'
-const firebase = require("../firebaseConfig") 
+import { EventBus } from '../eventBus.js'
+import * as firebase from 'firebase'
 
 export default {
     name: 'Admin_Panel',
@@ -255,25 +256,29 @@ export default {
         },
         getCategories () {
             var vm = this
-            firebase.rtdb.ref("categories").once('value').then(snapshot => {
-                var data = Object.values(snapshot.val())
-                vm.categories = data
+            EventBus.$on('get_categories', resp => {
+                vm.categories = resp
+                for (let index = 0; index < vm.categories.length; index++) {
+                    if(vm.categories[index] == 'All') {
+                        vm.categories.splice(index, 1)
+                    }
+                }
+                console.log(vm.categories)
             })
         },
         submit_category () {
             var vm = this
-            vm.loading = true
+            this.loading = true
             if(this.new_category) {
-                if(this.categories.includes(this.new_category) || this.categories.includes(this.new_category.toLowerCase())) {
-                    alert("Catgeory Already Exists")
-                } else {
-                    firebase.rtdb.ref("categories/" + this.new_category.toLowerCase().replace(/ /g,'')).set(this.new_category).then(() => {
-                        alert('New post Added')
-                        vm.loading = false
-                    })
+                var newCat = {
+                    new : vm.new_category
                 }
-            } else {
-                alert("Give a category name")
+                this.$http.post('https://sarc-bphc-backend.herokuapp.com/api/home/new_categorie', newCat).then(resp => {
+                    console.log(resp)
+                    vm.new_category = ''
+                    alert('New Category Added')
+                    vm.loading = false
+                })
             }
         },
         submit_post () {
@@ -287,14 +292,9 @@ export default {
                 randomString += possible.charAt(Math.floor(Math.random() * possible.length))
             }
             randomString = randomString + t
-            var id = ""
-            for (let i = 0; i < 5; i++) {
-                id += possible.charAt(Math.floor(Math.random() * possible.length))
-            }           
-            id = id + new Date().getTime() 
             var uc = this.$refs.uploadContent.files[0]
             if (this.title && this.post_tagline && this.description && this.selected_category != 'Choose a category') {
-              firebase.storage.ref('post_pics/' + randomString + uc.name).put(uc).then(resp => {
+              firebase.storage().ref('post_pics/' + randomString + uc.name).put(uc).then(resp => {
                   resp.ref.getDownloadURL().then(rsp => {
                     console.log(rsp)
                     const data_json = {
@@ -302,13 +302,10 @@ export default {
                         bodyText: vm.description,
                         tags: [vm.selected_category],
                         description: vm.post_tagline,
-                        image: rsp,
-                        stars: [],
-                        buckets: [],
-                        contact: "9999999999",
-                        _id: id
+                        image: rsp
                     }
-                    firebase.rtdb.ref("posts/" + id).set(data_json).then(() => {
+                    this.$http.post('https://sarc-bphc-backend.herokuapp.com/api/home/posts', data_json).then(resp => {
+                        console.log(resp)
                         alert('New post Added')
                         vm.loading = false
                     })

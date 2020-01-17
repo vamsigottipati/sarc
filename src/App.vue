@@ -4,66 +4,106 @@
   </div>
 </template>
 
+<script>
+
+import io from "socket.io-client"
+import { EventBus } from "./eventBus.js"
+
+export default {
+  name: 'app',
+  components: {
+  },
+  data () {
+    return {
+      token: localStorage.getItem('auth_token'),
+      userid: '',
+      socket: io("https://sarc-bphc-backend.herokuapp.com/", {query: {token : localStorage.getItem('auth_token')}}),
+    }
+  },
+  mounted: function () {
+    this.getSocketData()
+    this.listenToEventBus()
+    this.getUserId()
+  },
+  methods: {
+    getSocketData () {
+      var vm = this
+      this.socket.emit('posts', 'userid')
+      this.socket.on('posts_resp', data => {
+        vm.setEventBus('getPost', data)
+      })
+      this.socket.emit('categories', 'userid')
+      // this.socket.on('resp_stars', resp => {
+      //   EventBus.$emit('resp_stars', resp)
+      // })
+      // this.socket.on('resp_bucket', resp => {
+      // })
+      this.socket.on('categories_resp', rsp => {
+        vm.setEventBus('get_categories', rsp.categories)
+      })
+      this.socket.on("resp_comment", comment_resp => {
+        EventBus.$emit("newComment", comment_resp);
+      });
+    },
+    setEventBus (a, e) {
+      EventBus.$emit(a, e)
+    },
+    getUserId () {
+      var vm = this
+      this.$http.get('https://sarc-bphc-backend.herokuapp.com/api/auth').then( resp => {
+        if (resp.body.authdata.user.username.length) {
+            vm.userid = resp.body.authdata.user.username
+        }
+      })
+      EventBus.$emit('userId', vm.userid)
+    },
+    listenToEventBus () {
+      var vm = this
+      EventBus.$on('getPostData', () => {
+        vm.getSocketData()
+      })
+      EventBus.$on("comment", commentData => {
+        vm.socket.emit("comment", commentData);
+      });
+      EventBus.$on('sendStar', resp => {
+        vm.socket.emit('stars', {
+          id: resp,
+          userid: vm.userid
+        })
+      })
+      EventBus.$on('sendBucket', resp => {
+        vm.socket.emit('bucket', {
+          id: resp,
+          userid: vm.userid
+        })
+      })
+    },
+  }
+}
+</script>
+
 <style>
+
+/* @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap'); */
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  /* font-family: 'Avenir', Helvetica, Arial, sans-serif; */
+  font-family: 'Quicksand', serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  font-weight: 400;
+  margin: 0px;
+  padding: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.rotator {
-    -webkit-animation: rotator 1s ease-in-out infinite;
-      animation: rotator 1s ease-in-out infinite;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #EA4360;
-}
-.btn-outline {
-  all:unset;
-  background: transparent;
-  border: 2px solid #EA4360;
-  height: auto;
-  border-radius: 1000000px;
-  padding: 8px 30px 8px 30px;
-  align-self: center;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.35s;
-  font-weight: 500;
-}
-.btn-outline:hover {
-  background: #EA4360;
-  color: white;
-}
-
- @-webkit-keyframes rotator {
-  0% {
-      transform: rotate(0deg)
-  }
-  100% {
-      transform: rotate(360deg)
-  }
-}
-@keyframes rotator {
-  0% {
-      transform: rotate(0deg)
-  }
-  100% {
-      transform: rotate(360deg)
-  }
-}
+/* Keyframes */
 
 </style>
